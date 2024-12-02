@@ -8,11 +8,11 @@ fun main() {
     val day = "day1"
     val sampleList: List<String>? = Support.readFileAsListString("2024/$day-sample.txt")
     val inputList: List<String>? = Support.readFileAsListString("2024/$day-input.txt")
-    println(part2(sampleList!!))
-    println(part2(inputList!!))
+    println(day1part2(sampleList!!))
+    println(day1part2(inputList!!))
 }
 
-fun part1(inputList: List<String>): Any {
+fun day1part1(inputList: List<String>): Any {
     val unzipped = inputList
         .map { it.split("   ") }
         .map { it[0].toInt() to it[1].toInt() }
@@ -24,7 +24,7 @@ fun part1(inputList: List<String>): Any {
     }.sum()
 }
 
-fun part2(inputList: List<String>): Any {
+fun day1part2(inputList: List<String>): Any {
     val unzipped = inputList
         .map { it.split("   ") }
         .map { it[0].toInt() to it[1].toInt() }
