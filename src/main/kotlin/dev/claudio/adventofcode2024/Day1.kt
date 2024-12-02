@@ -1,25 +1,38 @@
 package dev.claudio.adventofcode2024
 
+import dev.claudio.adventofcode2024.support.HashBag
 import dev.claudio.adventofcode2024.support.Support
+import kotlin.math.absoluteValue
 
 fun main() {
     val day = "day1"
     val sampleList: List<String>? = Support.readFileAsListString("2024/$day-sample.txt")
     val inputList: List<String>? = Support.readFileAsListString("2024/$day-input.txt")
-    println(solution(sampleList!!))
+    println(part2(sampleList!!))
+    println(part2(inputList!!))
 }
 
-fun solution(inputList: List<String>) {
-    val summedUpCals: MutableList<Int> = mutableListOf(0)
-    var counter = 0
-    inputList.forEach {
-        if (it.isBlank()) {
-            counter++
-            summedUpCals.add(0)
-        } else {
-            summedUpCals[counter] += Integer.valueOf(it)
-        }
+fun part1(inputList: List<String>): Any {
+    val unzipped = inputList
+        .map { it.split("   ") }
+        .map { it[0].toInt() to it[1].toInt() }
+        .unzip()
+    val left = unzipped.first.sorted()
+    val right = unzipped.second.sorted()
+    return left.mapIndexed { index, value ->
+        (value - right[index]).absoluteValue
+    }.sum()
+}
+
+fun part2(inputList: List<String>): Any {
+    val unzipped = inputList
+        .map { it.split("   ") }
+        .map { it[0].toInt() to it[1].toInt() }
+        .unzip()
+//    val bagLeft = HashBag(unzipped.first)
+    val bagRight = HashBag(unzipped.second)
+    return unzipped.first.mapIndexed { index, value ->
+        value * bagRight.getCount(value)
     }
-    println(summedUpCals)
-    println(summedUpCals.maxOrNull())
+        .sum()
 }

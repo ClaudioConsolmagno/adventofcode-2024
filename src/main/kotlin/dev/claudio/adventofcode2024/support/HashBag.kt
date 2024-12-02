@@ -71,4 +71,8 @@ open class HashBag<E>(override val size: Int) : Bag<E>() {
             this.add(it, currentPairs.getCount(it))
         }
     }
+
+    override fun toString(): String {
+        return "HashBag(size=$size, map=$map)"
+    }
 }
