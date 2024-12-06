@@ -1,6 +1,7 @@
 package dev.claudio.adventofcode2024.support
 
 import java.awt.Point
+import kotlin.math.absoluteValue
 
 class Support {
     companion object {
@@ -22,6 +23,40 @@ class Support {
                 }
             }
             return tranposedList.map { String(it) }
+        }
+
+        fun stringDiagonals(list: List<String>): List<String> {
+            val charsForPerfectSquare = list.size - list[0].length
+            val squaredList = if (list.size > list[0].length) {
+                list.map { it + ".".repeat(charsForPerfectSquare) }
+            } else {
+                list + (0 until charsForPerfectSquare.absoluteValue).map { ".".repeat(list[0].length) }
+            }
+            val n = squaredList.size
+            val result = mutableListOf<String>()
+            // Get diagonals starting from first row
+            (0 until n).forEach { col ->
+                val diagonal = mutableListOf<Char>()
+                var i = 0
+                var j = col
+                while (i < n && j < n) {
+                    diagonal.add(squaredList[i++][j++])
+                }
+                result.add(diagonal.joinToString("") { it.toString() })
+            }
+
+            // Get diagonals starting from first column (excluding first element as it's already covered)
+            (1 until n).forEach { row ->
+                val diagonal = mutableListOf<Char>()
+                var i = row
+                var j = 0
+                while (i < n && j < n) {
+                    diagonal.add(squaredList[i++][j++])
+                }
+                result.add(diagonal.joinToString("") { it.toString() })
+            }
+
+            return result
         }
 
         fun Collection<Point>.printGrid() {
