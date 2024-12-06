@@ -177,6 +177,20 @@ class Support {
         fun <T> Collection<PointValue<T>>.get(x: Int, y: Int): PointValue<T>? {
             return this.firstOrNull { it.x == x && it.y == y }
         }
+
+        // This isn't fully tested
+        fun <T> List<T>.permutations(): Sequence<List<T>> = sequence {
+            if (isEmpty()) yield(emptyList())
+            else {
+                for (i in indices) {
+                    val element = get(i)
+                    val remainingList = toMutableList().apply { removeAt(i) }
+                    remainingList.permutations().forEach { subPermutation ->
+                        yield(listOf(element) + subPermutation)
+                    }
+                }
+            }
+        }
     }
 }
 
