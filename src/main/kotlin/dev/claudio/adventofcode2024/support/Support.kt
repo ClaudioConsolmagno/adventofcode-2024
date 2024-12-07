@@ -12,6 +12,13 @@ class Support {
                 ?.bufferedReader()
                 ?.readLines()
 
+        fun readFileAsListListChar(fileName: String): MutableList<MutableList<Char>>? =
+            object {}.javaClass.classLoader.getResourceAsStream(fileName)
+                ?.bufferedReader()
+                ?.readLines()
+                ?.map { it.toCharArray().toMutableList() }
+                ?.toMutableList()
+
         fun stringTranspose(list: List<String>): List<String> {
             val tranposedList = mutableListOf<CharArray>()
             (1..list[0].length).forEach {
