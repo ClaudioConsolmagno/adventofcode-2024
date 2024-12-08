@@ -203,4 +203,8 @@ class Support {
     }
 }
 
-open class PointValue<T>(x : Int, y: Int, var value: T) : Point(x,y)
+open class PointValue<T>(x : Int, y: Int, var value: T) : Point(x,y) {
+    override fun toString(): String {
+        return "[$x,$y,$value]"
+    }
+}
