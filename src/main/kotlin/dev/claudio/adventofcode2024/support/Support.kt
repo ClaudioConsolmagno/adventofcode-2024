@@ -200,6 +200,11 @@ class Support {
 
             return results
         }
+
+        inline fun <T> Collection<T>.toArrayDeque(): ArrayDeque<T> = ArrayDeque(this)
+        inline fun <T> arrayDequeOf(vararg elements: T) = ArrayDeque(elements.toList())
+        inline fun <T> ArrayDeque<T>.push(element: T) = addLast(element) // returns Unit
+        inline fun <T> ArrayDeque<T>.pop() = removeLastOrNull()          // returns T?
     }
 }
 
